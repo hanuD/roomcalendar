@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:keepScreenOn="true">
+
+    <TextView
+            android:layout_width="1006dp"
+            android:layout_height="134dp"
+            android:id="@+id/availabilityStatusTextView" android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:layout_alignLeft="@+id/availabilityStatusTextView"
+            android:layout_below="@+id/availabilityStatusTextView"
+            android:layout_marginLeft="20dp">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="550dp"
+                android:layout_height="fill_parent" android:layout_gravity="center" >
+            <TextView
+                    android:layout_width="193dp"
+                    android:layout_height="23dp"
+                    android:id="@+id/companyNameTextView"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/tw_logo"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="122dp"
+                    android:id="@+id/roomNameTextView"
+                    android:textSize="80sp"
+                    />
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="116dp"
+                    android:id="@+id/currentEventDetailsTextView"
+                    android:drawableLeft="@drawable/user_availability"
+                    android:drawablePadding="10dp"
+                    android:textSize="30sp" />
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:id="@+id/currentEventNameTextView"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_marginTop="20dp"
+                    android:textSize="30sp"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:paddingTop="10dp">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="               Upcoming Events"
+                    android:textSize="25dp"
+                    android:id="@+id/upcomingEventsTextView"/>
+            <ListView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/upcomingEventsListView" android:layout_gravity="center_horizontal|top"
+                    />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
+

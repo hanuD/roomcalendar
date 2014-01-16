@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RoomCalendar</string>
+    <string name="user_name">hanumand@thoughtworks.com</string>
+    <string name="password"></string>
+    <string name="date_format">yyyy-MM-dd HH:mm:ss</string>
+    <string name="broadcast_action">com.thoughtworks.roomcalendar.SHOWCALENDAREVENTS</string>
+
+
+</resources>
