@@ -36,6 +36,7 @@ public class RoomCalendarActivity extends Activity {
     ListView upcomingEventsListView;
     TextView currentEventDetailsTextView;
     TextView currentEventNameTextView;
+    TextView authorNameTextView;
     List<EventDetails> eventsList;
     String currentEventName;
     String currentEventAuthorName;
@@ -111,7 +112,8 @@ public class RoomCalendarActivity extends Activity {
                 availabilityStatus.setBackgroundColor(Color.RED);
                 roomNameTextView.setText("BANDIPUR");
                 currentEventNameTextView.setText("Event Name:\n" + currentEventName);
-                currentEventDetailsTextView.setText(currentEventStartTime + " : " + currentEventEndTime + " \n" + currentEventAuthorName);
+                currentEventDetailsTextView.setText(currentEventStartTime + " : " + currentEventEndTime);
+                authorNameTextView.setText(currentEventAuthorName);
             }
             eventsList.clear();
             for (EventDetails eventDetail : eventDetails) {

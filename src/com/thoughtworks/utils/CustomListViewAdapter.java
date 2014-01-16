@@ -35,7 +35,16 @@ public class CustomListViewAdapter extends ArrayAdapter<EventDetails> {
         ViewHolder holder = new ViewHolder();
         EventDetails eventDetail = getItem(position);
 
-        LayoutInflater mInflater = (LayoutInflater) context
+        convertView = initializeViewHolder(holder);
+
+        holder = (ViewHolder) convertView.getTag();
+
+        setValues(holder, eventDetail);
+        return convertView;
+    }
+
+    private View initializeViewHolder(ViewHolder holder) {
+        View convertView;LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
         convertView = mInflater.inflate(R.layout.list_item, null);
@@ -44,9 +53,27 @@ public class CustomListViewAdapter extends ArrayAdapter<EventDetails> {
         holder.txtEventName = (TextView) convertView.findViewById(R.id.eventName);
         holder.imageView = (ImageView) convertView.findViewById(R.id.icon);
         convertView.setTag(holder);
+        return convertView;
+    }
 
-        holder = (ViewHolder) convertView.getTag();
+    private void setValues(ViewHolder holder, EventDetails eventDetail) {
+        setEventName(holder, eventDetail);
 
+        setAuthor(holder, eventDetail.getAuthor().split("@")[0]);
+//        holder.txtTitle.setText(eventDetail.getEventStart().toLocaleString().split(" ")[3] + " " + eventDetail.getEventStart().toLocaleString().split(" ")[4] + " - " + eventDetail.getEventEnd().toLocaleString().split(" ")[3] + "  " + eventDetail.getEventEnd().toLocaleString().split(" ")[4]);
+        setEventDetail(holder, eventDetail);
+        holder.imageView.setImageResource(R.drawable.user_icon_for_upcoming_events);
+    }
+
+    private void setEventDetail(ViewHolder holder, EventDetails eventDetail) {
+        holder.txtTitle.setText(getEventDate(eventDetail) + " " + getEventTime(eventDetail));
+    }
+
+    private void setAuthor(ViewHolder holder, String s) {
+        holder.txtAuthor.setText("by " + s);
+    }
+
+    private void setEventName(ViewHolder holder, EventDetails eventDetail) {
         String eventName = eventDetail.getName();
 
         if (eventName != null) {
@@ -56,11 +83,13 @@ public class CustomListViewAdapter extends ArrayAdapter<EventDetails> {
                 holder.txtEventName.setText(eventName.substring(0,24) + "...");
             }
         }
+    }
 
-        holder.txtAuthor.setText("by " + eventDetail.getAuthor().split("@")[0]);
-//        holder.txtTitle.setText(eventDetail.getEventStart().toLocaleString().split(" ")[3] + " " + eventDetail.getEventStart().toLocaleString().split(" ")[4] + " - " + eventDetail.getEventEnd().toLocaleString().split(" ")[3] + "  " + eventDetail.getEventEnd().toLocaleString().split(" ")[4]);
-        holder.txtTitle.setText(eventDetail.getEventStart().toLocaleString().split(" ")[0] + "-" + eventDetail.getEventStart().toLocaleString().split(" ")[1] + " " + eventDetail.getEventStart().toLocaleString().split(" ")[3].substring(0, eventDetail.getEventStart().toLocaleString().split(" ")[3].length() - 3) + " - " + eventDetail.getEventEnd().toLocaleString().split(" ")[3].substring(0, eventDetail.getEventEnd().toLocaleString().split(" ")[3].length() - 3));
-        holder.imageView.setImageResource(R.drawable.user_icon_for_upcoming_events);
-        return convertView;
+    private String getEventTime(EventDetails eventDetail) {
+        return eventDetail.getEventStart().toLocaleString().split(" ")[3].substring(0, eventDetail.getEventStart().toLocaleString().split(" ")[3].length() - 3) + " - " + eventDetail.getEventEnd().toLocaleString().split(" ")[3].substring(0, eventDetail.getEventEnd().toLocaleString().split(" ")[3].length() - 3);
+    }
+
+    private String getEventDate(EventDetails eventDetail) {
+        return eventDetail.getEventStart().toLocaleString().split(" ")[0] + "-" + eventDetail.getEventStart().toLocaleString().split(" ")[1];
     }
 }

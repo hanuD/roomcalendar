@@ -54,25 +54,7 @@ public class CalendarEventRetriever {
             List<CalendarEventEntry> calendarEventEntries = resultFeed.getEntries();
 
             for (CalendarEventEntry entry : calendarEventEntries) {
-                EventDetails eventDetails = new EventDetails();
-                eventDetails.setName(entry.getTitle().getPlainText());
-                eventDetails.setAuthor(entry.getAuthors().get(0).getName());
-                eventDetails.setEventId(entry.getIcalUID());
-
-                for (Where where : entry.getLocations()) {
-                    eventDetails.setPlace(where.getValueString());
-                }
-
-                for (When when : entry.getTimes()) {
-                    if (when.getStartTime() != null) {
-                        eventDetails.setEventstart(new Date(when.getStartTime().getValue()));
-                    }
-                    if (when.getEndTime() != null) {
-                        eventDetails.setEventend(new Date(when.getEndTime().getValue()));
-                    }
-                }
-                Log.d("event details ", eventDetails.toString());
-                eventDetailsSet.add(eventDetails);
+                setEventDetails(entry);
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -85,5 +67,35 @@ public class CalendarEventRetriever {
         }
         return eventDetailsSet;
 
+    }
+
+    private void setEventDetails(CalendarEventEntry entry) {
+        EventDetails eventDetails = new EventDetails();
+        eventDetails.setName(entry.getTitle().getPlainText());
+        eventDetails.setAuthor(entry.getAuthors().get(0).getName());
+        eventDetails.setEventId(entry.getIcalUID());
+
+        setLocation(entry, eventDetails);
+
+        setStartEventAndEndEvent(entry, eventDetails);
+        Log.d("event details ", eventDetails.toString());
+        eventDetailsSet.add(eventDetails);
+    }
+
+    private void setStartEventAndEndEvent(CalendarEventEntry entry, EventDetails eventDetails) {
+        for (When when : entry.getTimes()) {
+            if (when.getStartTime() != null) {
+                eventDetails.setEventstart(new Date(when.getStartTime().getValue()));
+            }
+            if (when.getEndTime() != null) {
+                eventDetails.setEventend(new Date(when.getEndTime().getValue()));
+            }
+        }
+    }
+
+    private void setLocation(CalendarEventEntry entry, EventDetails eventDetails) {
+        for (Where where : entry.getLocations()) {
+            eventDetails.setPlace(where.getValueString());
+        }
     }
 }

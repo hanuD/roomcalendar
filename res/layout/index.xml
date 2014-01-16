@@ -37,23 +37,28 @@
                 android:layout_alignParentBottom="true"
                 android:autoText="false"
                 android:text="Android Meeting Room App Discussion"
-                android:layout_marginBottom="105dp" android:layout_marginLeft="10dp" android:layout_marginRight="10dp"/>
+                android:layout_marginBottom="105dp" android:layout_marginLeft="10dp" android:layout_marginRight="10dp"
+                android:id="@+id/currentEventNameTextView"/>
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:textSize="17sp"
                 android:layout_alignParentBottom="true"
                 android:autoText="false"
-                android:text="10:00 - 12:00"
-                android:layout_marginBottom="80dp" android:layout_marginLeft="10dp" android:layout_marginRight="10dp"/>
+                android:layout_marginBottom="80dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/currentEventDetailsTextView"/>
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:textSize="15sp"
                 android:layout_alignParentBottom="true"
                 android:autoText="false"
-                android:text="Senthil Raja Ramamoorthy" android:layout_marginBottom="40dp" android:textStyle="bold"
-                android:layout_marginLeft="60dp"/>
+                android:layout_marginBottom="40dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="60dp"
+                android:id = "@+id/authorNameTextView"/>
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
