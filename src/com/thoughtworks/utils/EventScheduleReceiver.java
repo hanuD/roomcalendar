@@ -5,12 +5,15 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+import com.thoughtworks.RoomCalendar.RoomCalendarActivity;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class EventScheduleReceiver extends BroadcastReceiver{
 
-    private static final long REPEAT_TIME = 1000 * 60 * 2;
+    private static final long REPEAT_TIME = 1000 * 60 * 1;
 
     @Override
     public void onReceive(Context context, Intent incomingIntent) {
@@ -25,7 +28,6 @@ public class EventScheduleReceiver extends BroadcastReceiver{
         Calendar calendar = Calendar.getInstance();
 
         calendar.add(Calendar.SECOND, 60);
-
         alarmManagerService.setInexactRepeating(AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(), REPEAT_TIME, pendingIntent);
     }

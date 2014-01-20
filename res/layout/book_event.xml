@@ -1,13 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <Button
+ <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/event_name"
+            android:id="@+id/eventHolderTextView"
+            android:layout_marginLeft="97dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:paddingLeft="60dp"/>
+    <EditText
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:id="@+id/eventNameText"
+            android:layout_below="@+id/eventHolderTextView"
+            android:paddingLeft="70dp"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/organizer"
+            android:id="@+id/organizerHolderTextView"
+            android:layout_below="@+id/eventNameText" android:layout_alignLeft="@+id/eventHolderTextView"
+            android:textSize="20sp"/>
+    <EditText
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="@string/email_id"
+            android:ems="10"
+            android:id="@+id/organizer" android:layout_below="@+id/organizerHolderTextView"
+            android:layout_alignLeft="@+id/organizerHolderTextView" android:layout_alignRight="@+id/organizerHolderTextView"/>
+    <TextView
+            android:layout_width="250dp"
+            android:layout_height="30dp"
+            android:text="@string/tw_addr"
+            android:id="@+id/twAddressHolderTextView"
+            android:layout_alignBottom="@+id/organizer" android:layout_toRightOf="@+id/organizer"
+            android:textSize="20sp"/>
+    <TimePicker
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Book Event"
-            android:id="@+id/bookevent" android:layout_gravity="center_horizontal"/>
-</LinearLayout>
+            android:id="@+id/startTimePicker"
+            android:layout_below="@+id/startTimeHolderTextView" android:layout_alignLeft="@+id/organizer"/>
+    <TextView
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:text="@string/start_time"
+            android:id="@+id/startTimeHolderTextView" android:layout_below="@+id/organizer" android:layout_alignLeft="@+id/eventNameText"
+            android:textSize="20sp"/>
+    <TextView
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:text="@string/end_time"
+            android:id="@+id/endTimeHolderTextView" android:layout_below="@+id/startTimePicker"
+            android:layout_alignRight="@+id/startTimeHolderTextView"
+            android:textSize="20sp"/>
+    <TimePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/endTimePicker" android:layout_below="@+id/endTimeHolderTextView"
+            android:layout_alignLeft="@+id/startTimePicker"/>
+
+     <Button android:layout_width="100dp" android:layout_height="50dp"
+             android:id="@+id/positiveButton" android:layout_below="@id/endTimePicker"
+             android:text="OK" android:layout_marginLeft="50dp"/>
+
+     <Button android:layout_width="100dp" android:layout_height="50dp"
+             android:id="@+id/negativeButton" android:layout_alignBottom="@id/positiveButton"
+             android:text="cancel" android:layout_toRightOf="@id/positiveButton"/>
+ </RelativeLayout>
+</ScrollView>

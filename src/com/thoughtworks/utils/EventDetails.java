@@ -1,113 +1,75 @@
 package com.thoughtworks.utils;
 
 import java.io.Serializable;
-import java.util.Date;
 
-public class EventDetails implements Serializable, Comparable<EventDetails> {
-    private String name;
-    private String eventId;
-    private String place;
-    private Date eventstart;
-    private Date eventend;
-    private String author;
+public class EventDetails implements Serializable{
 
-
-    public EventDetails(String name, String eventId, String place, Date eventstart, Date eventend, String author) {
-        this.name = name;
-        this.eventId = eventId;
-        this.place = place;
-        this.eventstart = eventstart;
-        this.eventend = eventend;
-        this.author = author;
-    }
+    long startTime;
+    long endTime;
+    String organizer;
+    String eventName;
+    int attendees;
+    long eventId;
+    String location;
 
     public EventDetails() {
+
     }
 
-    public void setName(String name) {
-        this.name = name;
+
+    public long getStartTime() {
+        return startTime;
     }
 
-    public String getName() {
-        return name;
+    public long getEndTime() {
+        return endTime;
     }
 
-    public void setEventId(String eventId) {
-        this.eventId = eventId;
+    public String getOrganizer() {
+        return organizer;
     }
 
-    public String getEventId() {
+    public String getEventName() {
+        return eventName;
+    }
+
+    public int getAttendees() {
+        return attendees;
+    }
+
+    public long getEventId() {
         return eventId;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
+    public String getLocation() {
+        return location;
     }
 
-    public String getPlace() {
-        return place;
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
     }
 
-    public void setEventstart(Date eventstart) {
-        this.eventstart = eventstart;
+    public void setEndTime(long endTime) {
+        this.endTime = endTime;
     }
 
-    public Date getEventStart() {
-        return eventstart;
+    public void setOrganizer(String organizer) {
+        this.organizer = organizer;
     }
 
-    public void setEventend(Date eventend) {
-        this.eventend = eventend;
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 
-    public Date getEventEnd() {
-        return eventend;
+    public void setAttendees(int attendees) {
+        this.attendees = attendees;
     }
 
-    @Override
-    public String toString() {
-        return "MyEventDTO{" +
-                "name='" + name + '\'' +
-                ", eventId='" + eventId + '\'' +
-                ", place='" + place + '\'' +
-                ", eventstart=" + eventstart +
-                ", eventend=" + eventend +
-                '}';
+    public void setEventId(long eventId) {
+        this.eventId = eventId;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setLocation(String location) {
+        this.location = location;
     }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    @Override
-    public int compareTo(EventDetails another) {
-//        int count = 0;
-//        Pattern pattern = Pattern.compile("Room");
-////        Matcher thisMatcher = pattern.matcher(this.getPlace());
-//        Matcher anotherMatcher = pattern.matcher(another.getPlace());
-//        while (anotherMatcher.find()) {
-//            count++;
-//        }
-//
-//        if (count > 1) {
-//            return 1;
-//        } else {
-            if (this.getEventStart() != null && this.getEventEnd() != null) {
-                if (this.getEventStart().after(another.getEventStart()) && this.getEventEnd().after(another.getEventEnd())) {
-                    return 1;
-                } else if (this.getEventStart().before(another.getEventStart()) && this.getEventEnd().before(another.getEventEnd())) {
-                    return -1;
-                } else {
-                    return 0;
-                }
-            }
-            return 0;
-        }
-
-
-
 }

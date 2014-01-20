@@ -1,57 +1,57 @@
 package com.thoughtworks.RoomCalendar;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
+import android.app.AlertDialog;
+import android.content.*;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.gdata.data.DateTime;
 import com.thoughtworks.utils.CustomListViewAdapter;
 import com.thoughtworks.utils.EventDetails;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.TreeSet;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
 public class RoomCalendarActivity extends Activity {
 
-    public String BROADCAST_ACTION = "com.thoughtworks.roomcalendar.SHOWCALENDAREVENTS";
+    public static String BROADCAST_ACTION = "com.thoughtworks.roomcalendar.SHOWCALENDAREVENTS";
+    public static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("hh:mm");
+    public static final String PREFS_NAME = "RoomCalendarPrefs";
 
     TextView availabilityStatus;
     TextView roomNameTextView;
     ListView upcomingEventsListView;
     TextView currentEventDetailsTextView;
     TextView currentEventNameTextView;
-    TextView authorNameTextView;
     List<EventDetails> eventsList;
     String currentEventName;
     String currentEventAuthorName;
     String currentEventStartTime;
     String currentEventEndTime;
-    TreeSet<EventDetails> eventDetails;
+    ArrayList<EventDetails> eventDetails;
     IntentFilter filter = new IntentFilter();
     CustomListViewAdapter adapter;
+    Resources resources;
+    SharedPreferences preferences;
+    Context context;
 
 
     public BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             adapter.clear();
-            eventDetails = (TreeSet<EventDetails>) intent.getSerializableExtra("eventDetailSet");
+            eventDetails = (ArrayList<EventDetails>) intent.getSerializableExtra("eventDetail");
             updateCalendarEvents(adapter);
 
         }
@@ -64,10 +64,15 @@ public class RoomCalendarActivity extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.index);
+        setContentView(R.layout.main);
 
         ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        resources = getResources();
+        preferences = getSharedPreferences(PREFS_NAME, 0);
+        preferences.edit().putString("roomName", resources.getString(R.string.majestic)).commit();
+
+        context = this;
 
         if (mWifi.isConnected()) {
 
@@ -76,13 +81,14 @@ public class RoomCalendarActivity extends Activity {
             currentEventDetailsTextView = (TextView) findViewById(R.id.currentEventDetailsTextView);
             currentEventNameTextView = (TextView) findViewById(R.id.currentEventNameTextView);
             upcomingEventsListView = (ListView) findViewById(R.id.upcomingEventsListView);
-
             eventsList = new ArrayList<EventDetails>();
+            roomNameTextView.setText(resources.getString(R.string.majestic));
+            registerClickListeners();
 
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
 
-            filter.addAction(BROADCAST_ACTION);
+            filter.addAction(RoomCalendarActivity.BROADCAST_ACTION);
             getApplicationContext().registerReceiver(receiver, filter);
 
 
@@ -95,30 +101,26 @@ public class RoomCalendarActivity extends Activity {
             Intent intent = new Intent(this, CalendarService.class);
             startService(intent);
         } else {
-            Toast.makeText(getApplicationContext(), "Internet connection not available", Toast.LENGTH_LONG);
+            Toast.makeText(getApplicationContext(), R.string.internet_unavailable, Toast.LENGTH_LONG).show();
         }
     }
 
     private void updateCalendarEvents(CustomListViewAdapter adapter) {
-        try {
 
+        try {
             if (isRoomAvailable(eventDetails)) {
                 availabilityStatus.setBackgroundColor(Color.GREEN);
-                roomNameTextView.setText("BANDIPUR");
-                currentEventDetailsTextView.setText("\n\tAvailable");
+                currentEventDetailsTextView.setText(R.string.available);
                 currentEventNameTextView.setText("");
 
             } else {
                 availabilityStatus.setBackgroundColor(Color.RED);
-                roomNameTextView.setText("BANDIPUR");
-                currentEventNameTextView.setText("Event Name:\n" + currentEventName);
-                currentEventDetailsTextView.setText(currentEventStartTime + " : " + currentEventEndTime);
-                authorNameTextView.setText(currentEventAuthorName);
+                currentEventNameTextView.setText(R.string.event_name + R.string.new_line + currentEventName);
+                currentEventDetailsTextView.setText(currentEventStartTime + R.string.hyphen + currentEventEndTime + R.string.new_line + currentEventAuthorName);
             }
             eventsList.clear();
             for (EventDetails eventDetail : eventDetails) {
                 eventsList.add(eventDetail);
-                Log.d("Event Detail", eventDetail.toString());
             }
 
             adapter.notifyDataSetChanged();
@@ -127,19 +129,18 @@ public class RoomCalendarActivity extends Activity {
         }
     }
 
-    private boolean isRoomAvailable(TreeSet<EventDetails> eventDetails) throws ParseException {
-        DateTime dateTime = DateTime.now();
+    private boolean isRoomAvailable(ArrayList<EventDetails> eventDetails) throws ParseException {
         boolean isOccupied;
         for (EventDetails eventDetail : eventDetails) {
-            Date before = eventDetail.getEventStart();
-            Date after = eventDetail.getEventEnd();
-            Date toCheck = new Date(dateTime.getValue());
+            Date before = new Date(eventDetail.getStartTime());
+            Date after = new Date(eventDetail.getEndTime());
+            Date toCheck = new Date();
             isOccupied = (before.getTime() < toCheck.getTime()) && after.getTime() > toCheck.getTime();
             if (isOccupied) {
-                currentEventName = eventDetail.getName();
-                currentEventAuthorName = eventDetail.getAuthor();
-                currentEventStartTime = eventDetail.getEventStart().toLocaleString().split(" ")[3].substring(0, eventDetail.getEventStart().toLocaleString().split(" ")[3].length() - 3);
-                currentEventEndTime = eventDetail.getEventEnd().toLocaleString().split(" ")[3].substring(0, eventDetail.getEventEnd().toLocaleString().split(" ")[3].length() - 3);
+                currentEventName = eventDetail.getEventName();
+                currentEventAuthorName = eventDetail.getOrganizer();
+                currentEventStartTime = RoomCalendarActivity.DATE_FORMAT.format(eventDetail.getStartTime());
+                currentEventEndTime = RoomCalendarActivity.DATE_FORMAT.format(eventDetail.getEndTime());
                 return false;
             }
         }
@@ -171,5 +172,36 @@ public class RoomCalendarActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
 //        getApplicationContext().unregisterReceiver(receiver);
+    }
+
+    private void registerClickListeners() {
+        roomNameTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder=new AlertDialog.Builder(context);
+                builder.setTitle(R.string.select_room);
+                final String[] roomNames = resources.getStringArray(R.array.room_array);
+                builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {}
+                });
+
+                builder.setSingleChoiceItems(R.array.room_array,0,new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String roomName = roomNames[which];
+                        roomName = roomName.substring(roomName.indexOf(resources.getString(R.string.hyphen))+1, roomName.length());
+                        preferences.edit().putString("roomName", roomName).commit();
+                        roomNameTextView.setText(roomName);
+                        Intent intent = new Intent(context, CalendarService.class);
+                        startService(intent);
+                    }
+                });
+                builder.show();
+
+            }
+        });
     }
 }

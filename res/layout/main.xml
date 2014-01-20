@@ -31,12 +31,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="122dp"
                     android:id="@+id/roomNameTextView"
-                    android:textSize="80sp"
-                    />
+                    android:textSize="80sp"/>
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="116dp"
                     android:id="@+id/currentEventDetailsTextView"
+                    android:paddingTop="30sp"
+                    android:paddingLeft="30sp"
                     android:drawableLeft="@drawable/user_availability"
                     android:drawablePadding="10dp"
                     android:textSize="30sp" />
@@ -46,7 +47,7 @@
                     android:id="@+id/currentEventNameTextView"
                     android:layout_gravity="left|center_vertical"
                     android:layout_marginTop="20dp"
-                    android:textSize="30sp"/>
+                    android:textSize="60sp"/>
         </LinearLayout>
         <LinearLayout
                 android:orientation="vertical"
@@ -57,8 +58,9 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="               Upcoming Events"
-                    android:textSize="25dp"
+                    android:text="@string/upcoming_events"
+                    android:paddingLeft="20dp"
+                    android:textSize="25sp"
                     android:id="@+id/upcomingEventsTextView"/>
             <ListView
                     android:layout_width="wrap_content"
