@@ -6,8 +6,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
-import java.util.Date;
-
 public class BookEventActivity extends Activity {
 
     EditText eventNameText;
@@ -31,7 +29,7 @@ public class BookEventActivity extends Activity {
 
         endTimePicker = (TimePicker) findViewById(R.id.endTimePicker);
         endTimePicker.setIs24HourView(true);
-        okButton = (Button) findViewById(R.id.positiveButton);
+        okButton = (Button) findViewById(R.id.okay_button);
 
         mStartTimeChangedListener =
                 new TimePicker.OnTimeChangedListener() {

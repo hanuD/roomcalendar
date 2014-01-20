@@ -101,7 +101,7 @@ public class RoomCalendarActivity extends Activity {
             Intent intent = new Intent(this, CalendarService.class);
             startService(intent);
         } else {
-            Toast.makeText(getApplicationContext(), R.string.internet_unavailable, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), resources.getString(R.string.internet_unavailable), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -110,13 +110,13 @@ public class RoomCalendarActivity extends Activity {
         try {
             if (isRoomAvailable(eventDetails)) {
                 availabilityStatus.setBackgroundColor(Color.GREEN);
-                currentEventDetailsTextView.setText(R.string.available);
+                currentEventDetailsTextView.setText(resources.getString(R.string.available));
                 currentEventNameTextView.setText("");
 
             } else {
                 availabilityStatus.setBackgroundColor(Color.RED);
-                currentEventNameTextView.setText(R.string.event_name + R.string.new_line + currentEventName);
-                currentEventDetailsTextView.setText(currentEventStartTime + R.string.hyphen + currentEventEndTime + R.string.new_line + currentEventAuthorName);
+                currentEventNameTextView.setText(resources.getString(R.string.event_name) + resources.getString(R.string.new_line) + currentEventName);
+                currentEventDetailsTextView.setText(currentEventStartTime + resources.getString(R.string.hyphen) + currentEventEndTime + resources.getString(R.string.new_line) + currentEventAuthorName);
             }
             eventsList.clear();
             for (EventDetails eventDetail : eventDetails) {

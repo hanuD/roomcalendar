@@ -1,80 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:keepScreenOn="true"
+              >
+    <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/contentHolder">
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                >
 
- <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="@string/event_name"
-            android:id="@+id/eventHolderTextView"
-            android:layout_marginLeft="97dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:paddingLeft="60dp"/>
-    <EditText
-            android:layout_width="300dp"
-            android:layout_height="40dp"
-            android:id="@+id/eventNameText"
-            android:layout_below="@+id/eventHolderTextView"
-            android:paddingLeft="70dp"/>
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="@string/organizer"
-            android:id="@+id/organizerHolderTextView"
-            android:layout_below="@+id/eventNameText" android:layout_alignLeft="@+id/eventHolderTextView"
-            android:textSize="20sp"/>
-    <EditText
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:hint="@string/email_id"
-            android:ems="10"
-            android:id="@+id/organizer" android:layout_below="@+id/organizerHolderTextView"
-            android:layout_alignLeft="@+id/organizerHolderTextView" android:layout_alignRight="@+id/organizerHolderTextView"/>
-    <TextView
-            android:layout_width="250dp"
-            android:layout_height="30dp"
-            android:text="@string/tw_addr"
-            android:id="@+id/twAddressHolderTextView"
-            android:layout_alignBottom="@+id/organizer" android:layout_toRightOf="@+id/organizer"
-            android:textSize="20sp"/>
-    <TimePicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/startTimePicker"
-            android:layout_below="@+id/startTimeHolderTextView" android:layout_alignLeft="@+id/organizer"/>
-    <TextView
-            android:layout_width="150dp"
-            android:layout_height="30dp"
-            android:text="@string/start_time"
-            android:id="@+id/startTimeHolderTextView" android:layout_below="@+id/organizer" android:layout_alignLeft="@+id/eventNameText"
-            android:textSize="20sp"/>
-    <TextView
-            android:layout_width="150dp"
-            android:layout_height="30dp"
-            android:text="@string/end_time"
-            android:id="@+id/endTimeHolderTextView" android:layout_below="@+id/startTimePicker"
-            android:layout_alignRight="@+id/startTimeHolderTextView"
-            android:textSize="20sp"/>
-    <TimePicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/endTimePicker" android:layout_below="@+id/endTimeHolderTextView"
-            android:layout_alignLeft="@+id/startTimePicker"/>
+            <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/eventHolderTextView"
+                    android:text="@string/event_name"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="20dp"
+                    android:paddingLeft="50dp"
+                    android:textSize="20sp"
+                    android:gravity="bottom"
+                    android:layout_toLeftOf="@+id/eventNameText"
+                    />
+            <EditText
+                    android:layout_width="225dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/eventNameText"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="20dp"
+                    android:textSize="20sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignLeft="@+id/endTimeHolderTextView"
+                    />
+            <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:paddingLeft="50dp"
+                    android:text="@string/organizer"
+                    android:textSize="20sp"
+                    android:id="@+id/organizerHolderTextView"
+                    android:gravity="bottom"
+                    android:layout_alignTop="@+id/organizer"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@+id/organizer"/>
+            <EditText
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/organizer"
+                    android:layout_below="@+id/eventHolderTextView"
+                    android:layout_marginTop="20dp"
+                    android:textSize="20sp"
+                    android:layout_alignLeft="@+id/eventNameText"
+                    android:layout_alignRight="@+id/endTimePicker"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tw_addr"
+                    android:id="@+id/textView"
+                    android:textSize="20sp"
+                    android:layout_alignBottom="@+id/organizer"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/organizer"/>
 
-     <Button android:layout_width="100dp" android:layout_height="50dp"
-             android:id="@+id/positiveButton" android:layout_below="@id/endTimePicker"
-             android:text="OK" android:layout_marginLeft="50dp"/>
+            <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:text="@string/start_time"
+                    android:id="@+id/startTimeHolderTextView"
+                    android:paddingLeft="50dp"
+                    android:textSize="20sp"
+                    android:gravity="bottom"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@+id/organizerHolderTextView"
+                    android:layout_alignParentLeft="true"/>
+            <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:textSize="20sp"
+                    android:text="@string/end_time"
+                    android:id="@+id/endTimeHolderTextView"
+                    android:layout_marginTop="20dp"
+                    android:gravity="bottom"
+                    android:layout_below="@+id/textView"
+                    android:layout_alignLeft="@+id/endTimePicker"/>
 
-     <Button android:layout_width="100dp" android:layout_height="50dp"
-             android:id="@+id/negativeButton" android:layout_alignBottom="@id/positiveButton"
-             android:text="cancel" android:layout_toRightOf="@id/positiveButton"/>
- </RelativeLayout>
-</ScrollView>
+            <TimePicker
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+                    android:id="@+id/startTimePicker"
+                    android:layout_marginLeft="50dp" android:layout_below="@+id/startTimeHolderTextView"
+                    android:layout_alignParentLeft="true"/>
+            <TimePicker
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+                    android:id="@+id/endTimePicker"
+                    android:layout_marginRight="100dp"
+                    android:layout_marginLeft="100dp"
+                    android:layout_alignTop="@+id/startTimePicker"
+                    android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+    </ScrollView>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/contentHolder">
+
+            <Button
+                    android:layout_width="290dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cancel"
+                    android:id="@+id/cancel_button"
+                    android:layout_marginTop="10dp"
+                    />
+            <Button
+                    android:layout_width="290dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/okay"
+                    android:id="@+id/okay_button"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    />
+
+    </LinearLayout>
+</RelativeLayout>
