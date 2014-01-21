@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.CalendarContract;
+import com.thoughtworks.RoomCalendar.RoomCalendarActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -57,6 +58,7 @@ public class EventsRetriever extends AsyncTask<String, Void, ArrayList<EventDeta
         if (cursor.moveToFirst()) {
             do {
                 if (cursor.getString(0).contains(calendarName)) {
+                    context.getSharedPreferences(RoomCalendarActivity.PREFS_NAME, 0).edit().putString("roomFullName", cursor.getString(0)).commit();
                     EventDetails eventDetails = new EventDetails();
                     eventDetails.setLocation(calendarName);
 

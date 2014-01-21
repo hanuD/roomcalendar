@@ -12,6 +12,7 @@ import android.os.StrictMode;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +46,7 @@ public class RoomCalendarActivity extends Activity {
     Resources resources;
     SharedPreferences preferences;
     Context context;
+    Button addButton;
 
 
     public BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -83,6 +85,7 @@ public class RoomCalendarActivity extends Activity {
             upcomingEventsListView = (ListView) findViewById(R.id.upcomingEventsListView);
             eventsList = new ArrayList<EventDetails>();
             roomNameTextView.setText(resources.getString(R.string.majestic));
+            addButton = (Button) findViewById(R.id.addButton);
             registerClickListeners();
 
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -101,7 +104,7 @@ public class RoomCalendarActivity extends Activity {
             Intent intent = new Intent(this, CalendarService.class);
             startService(intent);
         } else {
-            Toast.makeText(getApplicationContext(), resources.getString(R.string.internet_unavailable), Toast.LENGTH_LONG).show();
+            Toast.makeText(context, resources.getString(R.string.internet_unavailable), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -201,6 +204,15 @@ public class RoomCalendarActivity extends Activity {
                 });
                 builder.show();
 
+            }
+        });
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, BookEventActivity.class);
+                intent.putExtra("eventDetails", eventDetails);
+                startActivity(intent);
             }
         });
     }
