@@ -12,16 +12,19 @@
 
 
 
-    <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
-        <activity android:name=".BookEventActivity"
-                  android:label="Book Event"
-                android:screenOrientation="landscape" android:theme="@android:style/Theme.Holo.DialogWhenLarge">
+    <application android:label="@string/app_name" android:icon="@drawable/roomdisplay">
+        <activity android:name=".RoomCalendarActivity"
+                  android:label="@string/app_name"
+                android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
                 <action android:name="com.thoughtworks.roomcalendar.SHOWCALENDAREVENTS" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".BookEventActivity" android:label="@string/book_event_activity"
+                  android:screenOrientation="landscape" android:theme="@android:style/Theme.Holo.DialogWhenLarge"/>
 
         <service
                 android:name=".CalendarService"

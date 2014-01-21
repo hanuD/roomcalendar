@@ -40,7 +40,8 @@
                     android:paddingLeft="30sp"
                     android:drawableLeft="@drawable/user_availability"
                     android:drawablePadding="10dp"
-                    android:textSize="30sp" />
+                    android:textSize="30sp"
+                    android:visibility="visible"/>
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="150dp"

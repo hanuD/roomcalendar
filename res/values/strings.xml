@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">RoomCalendar</string>
+    <string name="book_event_activity">Book Event</string>
     <string name="broadcast_action">com.thoughtworks.roomcalendar.SHOWCALENDAREVENTS</string>
     <string name="upcoming_events">Upcoming Events</string>
     <string name="available">Available</string>
