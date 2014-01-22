@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
-import com.thoughtworks.utils.BookEventController;
 import com.thoughtworks.utils.BookEventTasker;
 import com.thoughtworks.utils.BookingDetails;
 import com.thoughtworks.utils.EventDetails;
