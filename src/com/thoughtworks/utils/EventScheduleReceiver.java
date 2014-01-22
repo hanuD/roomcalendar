@@ -13,7 +13,7 @@ import java.util.Date;
 
 public class EventScheduleReceiver extends BroadcastReceiver{
 
-    private static final long REPEAT_TIME = 1000 * 60 * 1;
+    private static final long REPEAT_TIME = 1000 * 30;
 
     @Override
     public void onReceive(Context context, Intent incomingIntent) {
