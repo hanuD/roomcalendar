@@ -1,4 +1,4 @@
-package com.thoughtworks.RoomCalendar;
+package com.thoughtworks.RoomCalendar.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,8 +16,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.thoughtworks.utils.CustomListViewAdapter;
-import com.thoughtworks.utils.EventDetails;
+import com.thoughtworks.RoomCalendar.R;
+import com.thoughtworks.RoomCalendar.utils.CustomListViewAdapter;
+import com.thoughtworks.RoomCalendar.domain.EventDetails;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package com.thoughtworks.RoomCalendar;
+package com.thoughtworks.RoomCalendar.activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,9 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
-import com.thoughtworks.utils.BookEventTasker;
-import com.thoughtworks.utils.BookingDetails;
-import com.thoughtworks.utils.EventDetails;
+import com.thoughtworks.RoomCalendar.R;
+import com.thoughtworks.RoomCalendar.utils.BookEventTasker;
+import com.thoughtworks.RoomCalendar.domain.BookingDetails;
+import com.thoughtworks.RoomCalendar.domain.EventDetails;
 
 import java.util.ArrayList;
 import java.util.Calendar;

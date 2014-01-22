@@ -1,4 +1,4 @@
-package com.thoughtworks.utils;
+package com.thoughtworks.RoomCalendar.domain;
 
 import java.util.Calendar;
 

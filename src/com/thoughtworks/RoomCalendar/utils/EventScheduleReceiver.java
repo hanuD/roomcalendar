@@ -1,15 +1,12 @@
-package com.thoughtworks.utils;
+package com.thoughtworks.RoomCalendar.utils;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
-import com.thoughtworks.RoomCalendar.RoomCalendarActivity;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class EventScheduleReceiver extends BroadcastReceiver{
 

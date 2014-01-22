@@ -1,4 +1,4 @@
-package com.thoughtworks.utils;
+package com.thoughtworks.RoomCalendar.utils;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -7,12 +7,12 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.CalendarContract;
-import com.thoughtworks.RoomCalendar.RoomCalendarActivity;
+import com.thoughtworks.RoomCalendar.activity.RoomCalendarActivity;
+import com.thoughtworks.RoomCalendar.domain.EventDetails;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class EventsRetriever extends AsyncTask<String, Void, ArrayList<EventDetails>> {
 

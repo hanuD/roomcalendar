@@ -1,4 +1,4 @@
-package com.thoughtworks.utils;
+package com.thoughtworks.RoomCalendar.utils;
 
 
 import android.app.Activity;
@@ -10,7 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.thoughtworks.RoomCalendar.R;
-import com.thoughtworks.RoomCalendar.RoomCalendarActivity;
+import com.thoughtworks.RoomCalendar.activity.RoomCalendarActivity;
+import com.thoughtworks.RoomCalendar.domain.EventDetails;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.thoughtworks.utils;
+package com.thoughtworks.RoomCalendar.utils;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -8,7 +8,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.CalendarContract;
-import com.thoughtworks.RoomCalendar.RoomCalendarActivity;
+import com.thoughtworks.RoomCalendar.activity.RoomCalendarActivity;
+import com.thoughtworks.RoomCalendar.domain.BookingDetails;
 
 public class BookEventTasker extends AsyncTask<BookingDetails, Void, Integer> {
 

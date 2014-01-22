@@ -1,9 +1,9 @@
-package com.thoughtworks.RoomCalendar;
+package com.thoughtworks.RoomCalendar.activity;
 
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import com.thoughtworks.utils.EventsRetriever;
+import com.thoughtworks.RoomCalendar.utils.EventsRetriever;
 
 import java.util.concurrent.ExecutionException;
 
