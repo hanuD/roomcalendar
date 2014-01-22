@@ -41,22 +41,23 @@
                     android:drawableLeft="@drawable/user_availability"
                     android:drawablePadding="10dp"
                     android:textSize="30sp"
-                    android:visibility="visible"/>
+                    />
             <Button
-                    style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add"
                     android:id="@+id/addButton"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="30dp"/>
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/add_button"
+                    android:visibility="invisible"/>
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:id="@+id/currentEventNameTextView"
                     android:layout_gravity="left|center_vertical"
                     android:layout_marginTop="20dp"
-                    android:textSize="60sp"/>
+                    android:textSize="60sp"
+                    android:visibility="invisible"/>
         </LinearLayout>
         <LinearLayout
                 android:orientation="vertical"

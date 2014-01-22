@@ -21,7 +21,9 @@ import com.thoughtworks.utils.EventDetails;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 public class RoomCalendarActivity extends Activity {
@@ -120,10 +122,11 @@ public class RoomCalendarActivity extends Activity {
         try {
             if (isRoomAvailable()) {
                 availabilityStatus.setBackgroundColor(Color.GREEN);
-                currentEventDetailsTextView.setText(resources.getString(R.string.available));
-                currentEventNameTextView.setText("");
-
+                currentEventDetailsTextView.setVisibility(View.GONE);
+                addButton.setVisibility(View.VISIBLE);
             } else {
+                currentEventDetailsTextView.setVisibility(View.VISIBLE);
+                addButton.setVisibility(View.INVISIBLE);
                 availabilityStatus.setBackgroundColor(Color.RED);
                 currentEventNameTextView.setText(resources.getString(R.string.event_name) + resources.getString(R.string.new_line) + currentEventName);
                 currentEventDetailsTextView.setText(currentEventStartTime + resources.getString(R.string.hyphen) + currentEventEndTime + resources.getString(R.string.new_line) + currentEventAuthorName);
