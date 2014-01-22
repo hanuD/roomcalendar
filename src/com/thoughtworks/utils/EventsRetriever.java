@@ -66,10 +66,7 @@ public class EventsRetriever extends AsyncTask<String, Void, ArrayList<EventDeta
                         eventDetails.setEventName(cursor.getString(2));
 
 
-                        Date begin = new Date(cursor.getLong(3));
                         eventDetails.setStartTime(cursor.getLong(3));
-
-                        Date end = new Date(cursor.getLong(4));
                         eventDetails.setEndTime(cursor.getLong(4));
 
                         eventDetails.setEventId(cursor.getLong(5));
