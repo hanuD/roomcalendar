@@ -10,10 +10,13 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import com.thoughtworks.utils.BookEventController;
+import com.thoughtworks.utils.BookEventTasker;
+import com.thoughtworks.utils.BookingDetails;
 import com.thoughtworks.utils.EventDetails;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.concurrent.ExecutionException;
 
 public class BookEventActivity extends Activity {
 
@@ -67,25 +70,35 @@ public class BookEventActivity extends Activity {
                 startTime.set(Calendar.MINUTE, startTimePicker.getCurrentMinute());
 
                 Calendar endTime = Calendar.getInstance();
-                endTime.set(Calendar.HOUR_OF_DAY,endTimePicker.getCurrentHour());
+                endTime.set(Calendar.HOUR_OF_DAY, endTimePicker.getCurrentHour());
                 endTime.set(Calendar.MINUTE, endTimePicker.getCurrentMinute());
 
                 boolean isEventOverlap = false;
 
-//                for (EventDetails events : eventDetails) {
-//                    if (events.getStartTime() < startTime.getTimeInMillis() && startTime.getTimeInMillis() < events.getEndTime()) {
-//                        isEventOverlap = true;
-//                    }
-//                }
-                if (true) {
-                    BookEventController bookController = new BookEventController(context);
-                    bookController.bookEventForCalendar(eventNameText.getText().toString(), organizerText.getText().toString(), startTime, endTime);
-                    Toast.makeText(context, "Event booked", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(context, RoomCalendarActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                }  else {
-                    Toast.makeText(context, "Event exists", Toast.LENGTH_LONG).show();
+                if (eventDetails != null && eventDetails.size() > 0) {
+                    for (EventDetails events : eventDetails) {
+                        if (events.getStartTime() < startTime.getTimeInMillis() && startTime.getTimeInMillis() < events.getEndTime()) {
+                            isEventOverlap = true;
+                        }
+                    }
+                }
+                if (!isEventOverlap) {
+                    BookEventTasker eventTasker = new BookEventTasker(context);
+                    BookingDetails bookingDetails = new BookingDetails(eventNameText.getText().toString(), organizerText.getText().toString(), startTime, endTime);
+                    eventTasker.execute(bookingDetails);
+                    try {
+                        System.out.println(eventTasker.get());
+                        Toast.makeText(context, "Event booked", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(context, RoomCalendarActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(context, "Event rejected. An event already exists in the given time", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(context, RoomCalendarActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);

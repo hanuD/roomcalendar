@@ -48,12 +48,19 @@ public class RoomCalendarActivity extends Activity {
     Context context;
     Button addButton;
 
+    public void setEventDetails(ArrayList<EventDetails> eventDetails) {
+        this.eventDetails = eventDetails;
+    }
+
+    public ArrayList<EventDetails> getEventDetails() {
+        return eventDetails;
+    }
 
     public BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             adapter.clear();
-            eventDetails = (ArrayList<EventDetails>) intent.getSerializableExtra("eventDetail");
+            setEventDetails((ArrayList <EventDetails>) intent.getSerializableExtra("eventDetail"));
             updateCalendarEvents(adapter);
 
         }
@@ -111,7 +118,7 @@ public class RoomCalendarActivity extends Activity {
     private void updateCalendarEvents(CustomListViewAdapter adapter) {
 
         try {
-            if (isRoomAvailable(eventDetails)) {
+            if (isRoomAvailable()) {
                 availabilityStatus.setBackgroundColor(Color.GREEN);
                 currentEventDetailsTextView.setText(resources.getString(R.string.available));
                 currentEventNameTextView.setText("");
@@ -122,7 +129,7 @@ public class RoomCalendarActivity extends Activity {
                 currentEventDetailsTextView.setText(currentEventStartTime + resources.getString(R.string.hyphen) + currentEventEndTime + resources.getString(R.string.new_line) + currentEventAuthorName);
             }
             eventsList.clear();
-            for (EventDetails eventDetail : eventDetails) {
+            for (EventDetails eventDetail : getEventDetails()) {
                 eventsList.add(eventDetail);
             }
 
@@ -132,9 +139,9 @@ public class RoomCalendarActivity extends Activity {
         }
     }
 
-    private boolean isRoomAvailable(ArrayList<EventDetails> eventDetails) throws ParseException {
+    private boolean isRoomAvailable() throws ParseException {
         boolean isOccupied;
-        for (EventDetails eventDetail : eventDetails) {
+        for (EventDetails eventDetail : getEventDetails()) {
             Date before = new Date(eventDetail.getStartTime());
             Date after = new Date(eventDetail.getEndTime());
             Date toCheck = new Date();
@@ -211,7 +218,7 @@ public class RoomCalendarActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, BookEventActivity.class);
-                intent.putExtra("eventDetails", eventDetails);
+                intent.putExtra("eventDetails", getEventDetails());
                 startActivity(intent);
             }
         });

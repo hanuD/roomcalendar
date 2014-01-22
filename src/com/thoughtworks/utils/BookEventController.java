@@ -17,12 +17,10 @@ import java.util.Date;
 public class BookEventController {
 
     private Context context;
-    private ContentResolver resolver;
     private SharedPreferences preferences;
 
     public BookEventController(Context context) {
         this.context = context;
-        resolver = context.getContentResolver();
         preferences = context.getSharedPreferences(RoomCalendarActivity.PREFS_NAME, 0);
     }
 
