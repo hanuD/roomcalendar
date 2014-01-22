@@ -52,7 +52,11 @@ public class BookEventTasker extends AsyncTask<BookingDetails, Void, Integer> {
         eventValues.put(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY);
         eventValues.put(CalendarContract.Events.GUESTS_CAN_MODIFY, true);
         eventValues.put(CalendarContract.Events.GUESTS_CAN_INVITE_OTHERS, true);
-        eventValues.put(CalendarContract.Events.EVENT_LOCATION, context.getSharedPreferences(RoomCalendarActivity.PREFS_NAME, 0).getString("roomFullName", null));
+        String roomName = null;
+        if (context.getSharedPreferences(RoomCalendarActivity.PREFS_NAME, 0).getString("roomFullName", null) == null) {
+            roomName =  context.getSharedPreferences(RoomCalendarActivity.PREFS_NAME, 0).getString("roomName", null);
+        }
+        eventValues.put(CalendarContract.Events.EVENT_LOCATION, roomName);
 
         Uri uri = contentResolver.insert(CalendarContract.Events.CONTENT_URI, eventValues);
         return Long.parseLong(uri.getLastPathSegment());
