@@ -44,7 +44,7 @@ public class EventsRetriever extends AsyncTask<String, Void, ArrayList<EventDeta
         startTime.add(Calendar.MINUTE, -startTime.get(Calendar.MINUTE));
         startTime.add(Calendar.SECOND, -startTime.get(Calendar.SECOND));
 
-        endTime.add(Calendar.HOUR_OF_DAY, 21 - startTime.get(Calendar.HOUR_OF_DAY));
+        endTime.add(Calendar.HOUR_OF_DAY, 24 - startTime.get(Calendar.HOUR_OF_DAY));
         endTime.add(Calendar.MINUTE, -endTime.get(Calendar.MINUTE));
         endTime.add(Calendar.SECOND, -endTime.get(Calendar.SECOND));
 

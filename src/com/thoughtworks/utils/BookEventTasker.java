@@ -48,12 +48,12 @@ public class BookEventTasker extends AsyncTask<BookingDetails, Void, Integer> {
         eventValues.put(CalendarContract.Events.TITLE, bookingDetail.getEventName());
         eventValues.put(CalendarContract.Events.CALENDAR_ID, calendarId);
         eventValues.put(CalendarContract.Events.EVENT_TIMEZONE, "Asia/Kolkata");
-        eventValues.put(CalendarContract.Events.ORGANIZER, bookingDetail.getOrganizer() + "@thoughtworks.com");
+        eventValues.put(CalendarContract.Events.ORGANIZER, bookingDetail.getOrganizer());
         eventValues.put(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY);
-        eventValues.put(CalendarContract.Events.GUESTS_CAN_MODIFY, true);
-        eventValues.put(CalendarContract.Events.GUESTS_CAN_INVITE_OTHERS, true);
-        String roomName = null;
-        if (context.getSharedPreferences(RoomCalendarActivity.PREFS_NAME, 0).getString("roomFullName", null) == null) {
+        eventValues.put(CalendarContract.Events.GUESTS_CAN_MODIFY, 1);
+        eventValues.put(CalendarContract.Events.GUESTS_CAN_INVITE_OTHERS, 1);
+        String roomName = context.getSharedPreferences(RoomCalendarActivity.PREFS_NAME, 0).getString("roomFullName", null);
+        if (roomName == null) {
             roomName =  context.getSharedPreferences(RoomCalendarActivity.PREFS_NAME, 0).getString("roomName", null);
         }
         eventValues.put(CalendarContract.Events.EVENT_LOCATION, roomName);
