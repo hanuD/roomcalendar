@@ -37,14 +37,24 @@ public class BookEventActivity extends Activity {
         Intent intent = getIntent();
         eventDetails = (ArrayList<EventDetails>) intent.getSerializableExtra("eventDetail");
 
+        Calendar cal=Calendar.getInstance();
+
+        int hour=cal.get(Calendar.HOUR_OF_DAY);
+        int min=cal.get(Calendar.MINUTE);
+
         eventNameText = (EditText) findViewById(R.id.eventNameText);
         organizerText = (EditText) findViewById(R.id.organizer);
         startTimePicker = (TimePicker) findViewById(R.id.startTimePicker);
         startTimePicker.setIs24HourView(true);
-
+        startTimePicker.setCurrentHour(hour);
+        startTimePicker.setCurrentMinute(min);
 
         endTimePicker = (TimePicker) findViewById(R.id.endTimePicker);
         endTimePicker.setIs24HourView(true);
+        endTimePicker.setCurrentHour(hour);
+        endTimePicker.setCurrentMinute(min);
+
+
         okButton = (Button) findViewById(R.id.okay_button);
         cancelButton = (Button) findViewById(R.id.cancel_button);
 
@@ -106,5 +116,4 @@ public class BookEventActivity extends Activity {
             }
         });
     }
-
 }
