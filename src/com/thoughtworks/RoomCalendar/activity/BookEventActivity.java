@@ -86,9 +86,11 @@ public class BookEventActivity extends Activity {
                 boolean isEventOverlap = false;
 
                 if (eventDetails != null && eventDetails.size() > 0) {
+                    System.out.println("inside if");
                     for (EventDetails events : eventDetails) {
-                        if (events.getStartTime() < startTime.getTimeInMillis() && startTime.getTimeInMillis() < events.getEndTime()) {
+                        if (startTime.getTimeInMillis() < events.getEndTime()) {
                             isEventOverlap = true;
+                            break;
                         }
                     }
                 }

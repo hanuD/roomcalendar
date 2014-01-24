@@ -12,10 +12,7 @@ import android.os.StrictMode;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import com.thoughtworks.RoomCalendar.R;
 import com.thoughtworks.RoomCalendar.utils.CustomListViewAdapter;
 import com.thoughtworks.RoomCalendar.domain.EventDetails;
@@ -33,7 +30,6 @@ public class RoomCalendarActivity extends Activity {
     public static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("hh:mm");
     public static final String PREFS_NAME = "RoomCalendarPrefs";
 
-    TextView availabilityStatus;
     TextView roomNameTextView;
     ListView upcomingEventsListView;
     TextView currentEventDetailsTextView;
@@ -50,6 +46,7 @@ public class RoomCalendarActivity extends Activity {
     SharedPreferences preferences;
     Context context;
     Button addButton;
+    RelativeLayout eventsViewHolder;
 
     public void setEventDetails(ArrayList<EventDetails> eventDetails) {
         this.eventDetails = eventDetails;
@@ -76,7 +73,7 @@ public class RoomCalendarActivity extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.main);
+        setContentView(R.layout.new_main);
 
         ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
@@ -88,7 +85,7 @@ public class RoomCalendarActivity extends Activity {
 
         if (mWifi.isConnected()) {
 
-            availabilityStatus = (TextView) findViewById(R.id.availabilityStatusTextView);
+            eventsViewHolder = (RelativeLayout) findViewById(R.id.eventsViewHolder);
             roomNameTextView = (TextView) findViewById(R.id.roomNameTextView);
             currentEventDetailsTextView = (TextView) findViewById(R.id.currentEventDetailsTextView);
             currentEventNameTextView = (TextView) findViewById(R.id.currentEventNameTextView);
@@ -96,6 +93,7 @@ public class RoomCalendarActivity extends Activity {
             eventsList = new ArrayList<EventDetails>();
             roomNameTextView.setText(resources.getString(R.string.majestic));
             addButton = (Button) findViewById(R.id.addButton);
+
             registerClickListeners();
 
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -122,13 +120,13 @@ public class RoomCalendarActivity extends Activity {
 
         try {
             if (isRoomAvailable()) {
-                availabilityStatus.setBackgroundColor(Color.GREEN);
                 currentEventDetailsTextView.setVisibility(View.GONE);
+                eventsViewHolder.setBackgroundColor(Color.GREEN);
                 addButton.setVisibility(View.VISIBLE);
             } else {
                 currentEventDetailsTextView.setVisibility(View.VISIBLE);
+                eventsViewHolder.setBackgroundColor(Color.RED);
                 addButton.setVisibility(View.INVISIBLE);
-                availabilityStatus.setBackgroundColor(Color.RED);
                 currentEventNameTextView.setText(resources.getString(R.string.event_name) + resources.getString(R.string.new_line) + currentEventName);
                 currentEventDetailsTextView.setText(currentEventStartTime + resources.getString(R.string.hyphen) + currentEventEndTime + resources.getString(R.string.new_line) + currentEventAuthorName);
             }

@@ -75,7 +75,8 @@
             <ListView
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
-                    android:id="@+id/upcomingEventsListView" android:layout_gravity="center_horizontal|top"
+                    android:id="@+id/upcomingEventsListView"
+                    android:layout_gravity="center_horizontal|top"
                     />
         </LinearLayout>
 

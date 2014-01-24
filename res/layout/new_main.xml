@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="vertical"
+                    android:layout_width="450dp"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center"
+                    android:keepScreenOn="true"
+                    android:id ="@+id/eventsViewHolder"
+                    >
+        <TextView
+                android:layout_width="1006dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:text="Bangalore"
+                android:textSize="30sp"
+                android:gravity="center|bottom"
+                android:layout_alignParentRight="true"
+                android:id="@+id/textView"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentBottom="false"/>
+        <TextView
+                android:layout_width="1006dp"
+                android:layout_height="80dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/roomNameTextView"
+                android:gravity="center"
+                android:textSize="60sp"
+                android:layout_below="@+id/textView" android:layout_alignParentLeft="true"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="130dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:maxLines="3"
+                android:id="@+id/currentEventNameTextView"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/currentEventDetailsTextView"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:textSize="15sp"
+
+                android:layout_alignParentBottom="true"
+                android:autoText="false"
+                android:layout_marginBottom="40dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="60dp"
+                android:id = "@+id/authorNameTextView"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:textSize="15sp"
+                android:text="ThoughtWorks"
+                android:id="@+id/companyNameTextView"
+                android:gravity="right|top"
+                android:layout_marginRight="5dp"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/addButton"
+                android:background="@drawable/add_button"
+                android:layout_alignBaseline="@+id/currentEventNameTextView"
+                android:layout_alignBottom="@+id/currentEventNameTextView" android:layout_centerHorizontal="true"/>
+        <DigitalClock
+                android:layout_width="250dp"
+                android:layout_height="80dp"
+                android:id="@+id/digitalClock"
+                android:textSize="60sp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/currentDate"
+                android:text = "Dec 02, 2103"
+                android:layout_above="@+id/digitalClock"
+                android:textSize="30sp"
+                android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingTop="10dp">
+
+        <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:id="@+id/upcomingEventsListView"
+                android:layout_gravity="center_horizontal|top"
+                />
+
+    </LinearLayout>
+
+</LinearLayout>
+

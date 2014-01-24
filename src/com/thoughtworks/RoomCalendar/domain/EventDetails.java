@@ -72,4 +72,17 @@ public class EventDetails implements Serializable{
     public void setLocation(String location) {
         this.location = location;
     }
+
+    @Override
+    public String toString() {
+        return "EventDetails{" +
+                "startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", organizer='" + organizer + '\'' +
+                ", eventName='" + eventName + '\'' +
+                ", attendees=" + attendees +
+                ", eventId=" + eventId +
+                ", location='" + location + '\'' +
+                '}';
+    }
 }

@@ -52,10 +52,10 @@ public class CustomListViewAdapter extends ArrayAdapter<EventDetails> {
         String eventName = eventDetail.getEventName();
 
         if (eventName != null) {
-            if (eventName.length() < 24) {
+            if (eventName.length() < 38) {
                 holder.txtEventName.setText(eventName);
             } else {
-                holder.txtEventName.setText(eventName.substring(0,24) + "...");
+                holder.txtEventName.setText(eventName.substring(0,38) + "...");
             }
         }
 
