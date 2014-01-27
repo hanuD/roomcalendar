@@ -61,7 +61,6 @@
                 android:textSize="15sp"
                 android:textColor="#FFFFFF"
                 android:layout_alignParentBottom="true"
-                android:autoText="false"
                 android:layout_marginBottom="40dp"
                 android:textStyle="bold"
                 android:layout_marginLeft="60dp"
