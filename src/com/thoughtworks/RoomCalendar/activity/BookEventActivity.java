@@ -35,7 +35,7 @@ public class BookEventActivity extends Activity {
         setContentView(R.layout.book_event);
         context = this;
         Intent intent = getIntent();
-        eventDetails = (ArrayList<EventDetails>) intent.getSerializableExtra("eventDetail");
+        eventDetails = (ArrayList<EventDetails>) intent.getSerializableExtra("eventDetails");
 
         Calendar cal=Calendar.getInstance();
 
@@ -86,9 +86,9 @@ public class BookEventActivity extends Activity {
                 boolean isEventOverlap = false;
 
                 if (eventDetails != null && eventDetails.size() > 0) {
-                    System.out.println("inside if");
                     for (EventDetails events : eventDetails) {
-                        if (startTime.getTimeInMillis() < events.getEndTime()) {
+                        if ((startTime.getTimeInMillis() > events.getStartTime() && startTime.getTimeInMillis() < events.getEndTime()) ||
+                                (endTime.getTimeInMillis() > events.getStartTime() && endTime.getTimeInMillis() < events.getEndTime())) {
                             isEventOverlap = true;
                             break;
                         }
@@ -99,7 +99,7 @@ public class BookEventActivity extends Activity {
                     BookingDetails bookingDetails = new BookingDetails(eventNameText.getText().toString(), organizerText.getText().toString(), startTime, endTime);
                     eventTasker.execute(bookingDetails);
                     try {
-                        System.out.println(eventTasker.get());
+                        eventTasker.get();
                         Toast.makeText(context, "Event booked", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(context, RoomCalendarActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
