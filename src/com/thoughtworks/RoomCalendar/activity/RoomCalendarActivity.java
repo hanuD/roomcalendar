@@ -125,11 +125,11 @@ public class RoomCalendarActivity extends Activity {
             currentDate.setText(DATE_FORMAT.format(date));
             if (isRoomAvailable()) {
                 currentEventDetailsTextView.setVisibility(View.GONE);
-                eventsViewHolder.setBackgroundColor(Color.GREEN);
+                eventsViewHolder.setBackgroundColor(Color.parseColor("#33DB2A"));
                 addButton.setVisibility(View.VISIBLE);
             } else {
                 currentEventDetailsTextView.setVisibility(View.VISIBLE);
-                eventsViewHolder.setBackgroundColor(Color.RED);
+                eventsViewHolder.setBackgroundColor(Color.parseColor("#800000"));
                 addButton.setVisibility(View.INVISIBLE);
                 currentEventNameTextView.setText(resources.getString(R.string.event_name) + resources.getString(R.string.new_line) + currentEventName);
                 currentEventDetailsTextView.setText(currentEventStartTime + resources.getString(R.string.hyphen) + currentEventEndTime + resources.getString(R.string.new_line) + currentEventAuthorName);
