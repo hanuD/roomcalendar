@@ -21,6 +21,7 @@ import com.thoughtworks.RoomCalendar.domain.EventDetails;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +29,8 @@ import java.util.List;
 public class RoomCalendarActivity extends Activity {
 
     public static String BROADCAST_ACTION = "com.thoughtworks.roomcalendar.SHOWCALENDAREVENTS";
-    public static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("hh:mm");
+    public static SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("hh:mm");
+    public static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MMM dd, yyyy");
     public static final String PREFS_NAME = "RoomCalendarPrefs";
 
     TextView roomNameTextView;
@@ -48,6 +50,7 @@ public class RoomCalendarActivity extends Activity {
     Context context;
     Button addButton;
     RelativeLayout eventsViewHolder;
+    TextView currentDate;
 
     public void setEventDetails(ArrayList<EventDetails> eventDetails) {
         this.eventDetails = eventDetails;
@@ -94,6 +97,7 @@ public class RoomCalendarActivity extends Activity {
             eventsList = new ArrayList<EventDetails>();
             roomNameTextView.setText(resources.getString(R.string.majestic));
             addButton = (Button) findViewById(R.id.addButton);
+            currentDate = (TextView) findViewById(R.id.currentDate);
 
             registerClickListeners();
 
@@ -118,6 +122,8 @@ public class RoomCalendarActivity extends Activity {
     private void updateCalendarEvents(CustomListViewAdapter adapter) {
 
         try {
+            Date date = new Date();
+            currentDate.setText(DATE_FORMAT.format(date));
             if (isRoomAvailable()) {
                 currentEventDetailsTextView.setVisibility(View.GONE);
                 eventsViewHolder.setBackgroundColor(Color.GREEN);
@@ -150,8 +156,8 @@ public class RoomCalendarActivity extends Activity {
             if (isOccupied) {
                 currentEventName = eventDetail.getEventName();
                 currentEventAuthorName = eventDetail.getOrganizer();
-                currentEventStartTime = RoomCalendarActivity.DATE_FORMAT.format(eventDetail.getStartTime());
-                currentEventEndTime = RoomCalendarActivity.DATE_FORMAT.format(eventDetail.getEndTime());
+                currentEventStartTime = RoomCalendarActivity.TIME_FORMAT.format(eventDetail.getStartTime());
+                currentEventEndTime = RoomCalendarActivity.TIME_FORMAT.format(eventDetail.getEndTime());
                 return false;
             }
         }

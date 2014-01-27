@@ -60,7 +60,7 @@ public class CustomListViewAdapter extends ArrayAdapter<EventDetails> {
         }
 
         holder.txtAuthor.setText("by " + eventDetail.getOrganizer().split("@")[0]);
-        holder.txtTitle.setText(RoomCalendarActivity.DATE_FORMAT.format(eventDetail.getStartTime()) + "-" + RoomCalendarActivity.DATE_FORMAT.format(eventDetail.getEndTime()));
+        holder.txtTitle.setText(RoomCalendarActivity.TIME_FORMAT.format(eventDetail.getStartTime()) + "-" + RoomCalendarActivity.TIME_FORMAT.format(eventDetail.getEndTime()));
         holder.imageView.setImageResource(R.drawable.user_icon_for_upcoming_events);
         return convertView;
     }
