@@ -15,13 +15,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.*;
 import com.thoughtworks.RoomCalendar.R;
-import com.thoughtworks.RoomCalendar.utils.CustomListViewAdapter;
 import com.thoughtworks.RoomCalendar.domain.EventDetails;
+import com.thoughtworks.RoomCalendar.utils.CustomListViewAdapter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
