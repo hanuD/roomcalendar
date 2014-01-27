@@ -25,7 +25,7 @@ public class BookEventTasker extends AsyncTask<BookingDetails, Void, Integer> {
 
     @Override
     protected Integer doInBackground(BookingDetails... bookingDetails) {
-        long calendarId = gerCalendarId();
+        long calendarId = getCalendarId();
         long eventID = createEvent(calendarId, bookingDetails[0]);
         Uri uri = addOrganizerToAttendees(eventID, bookingDetails[0]);
         return Integer.parseInt(uri.getLastPathSegment());
@@ -63,7 +63,7 @@ public class BookEventTasker extends AsyncTask<BookingDetails, Void, Integer> {
         return Long.parseLong(uri.getLastPathSegment());
     }
 
-    private long gerCalendarId() {
+    private long getCalendarId() {
         Uri uri = CalendarContract.Calendars.CONTENT_URI;
         String[] calendarProjection = new String[] {CalendarContract.Calendars._ID};
         String selection =  CalendarContract.Calendars.CALENDAR_DISPLAY_NAME + " like ?";

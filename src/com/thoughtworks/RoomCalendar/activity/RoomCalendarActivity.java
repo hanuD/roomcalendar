@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -102,11 +103,9 @@ public class RoomCalendarActivity extends Activity {
             filter.addAction(RoomCalendarActivity.BROADCAST_ACTION);
             getApplicationContext().registerReceiver(receiver, filter);
 
-
             adapter = new CustomListViewAdapter(this,
                     R.layout.list_item, eventsList);
-
-
+            Log.d("Event Details", eventsList.toString());
             upcomingEventsListView.setAdapter(adapter);
 
             Intent intent = new Intent(this, CalendarService.class);
