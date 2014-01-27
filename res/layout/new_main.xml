@@ -22,7 +22,7 @@
                 android:textColor="#FFFFFF"
                 android:gravity="center|bottom"
                 android:layout_alignParentRight="true"
-                android:id="@+id/location"
+                android:id="@+id/cityNameTextView"
                 android:layout_marginTop="10dp"
                 android:layout_alignParentBottom="false"/>
         <TextView
@@ -33,8 +33,7 @@
                 android:gravity="center"
                 android:textSize="60sp"
                 android:textColor="#FFFFFF"
-                android:layout_below="@+id/location"
-                android:layout_alignParentLeft="true"/>
+                android:layout_below="@+id/cityNameTextView" android:layout_alignParentLeft="true"/>
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,7 +72,7 @@
                 android:layout_alignParentBottom="true"
                 android:textSize="15sp"
                 android:textColor="#FFFFFF"
-                android:text="ThoughtWorks"
+                android:text="@string/thoughtworks"
                 android:id="@+id/companyNameTextView"
                 android:gravity="right|top"
                 android:layout_marginRight="5dp"/>

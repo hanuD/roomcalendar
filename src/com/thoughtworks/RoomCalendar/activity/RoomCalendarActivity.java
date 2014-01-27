@@ -50,6 +50,7 @@ public class RoomCalendarActivity extends Activity {
     Button addButton;
     RelativeLayout eventsViewHolder;
     TextView currentDate;
+    TextView cityNameTextView;
 
     public void setEventDetails(ArrayList<EventDetails> eventDetails) {
         this.eventDetails = eventDetails;
@@ -83,6 +84,7 @@ public class RoomCalendarActivity extends Activity {
         resources = getResources();
         preferences = getSharedPreferences(PREFS_NAME, 0);
         preferences.edit().putString("roomName", resources.getString(R.string.majestic)).commit();
+        preferences.edit().putString("cityName", resources.getString(R.string.bangalore)).commit();
 
         context = this;
 
@@ -97,6 +99,7 @@ public class RoomCalendarActivity extends Activity {
             roomNameTextView.setText(resources.getString(R.string.majestic));
             addButton = (Button) findViewById(R.id.addButton);
             currentDate = (TextView) findViewById(R.id.currentDate);
+            cityNameTextView = (TextView) findViewById(R.id.cityNameTextView);
 
             registerClickListeners();
 
@@ -123,6 +126,7 @@ public class RoomCalendarActivity extends Activity {
         try {
             Date date = new Date();
             currentDate.setText(DATE_FORMAT.format(date));
+            cityNameTextView.setText(preferences.getString("cityName", null));
             if (isRoomAvailable()) {
                 currentEventDetailsTextView.setVisibility(View.GONE);
                 eventsViewHolder.setBackgroundColor(Color.parseColor("#33DB2A"));
@@ -208,8 +212,11 @@ public class RoomCalendarActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String roomName = roomNames[which];
-                        roomName = roomName.substring(roomName.indexOf(resources.getString(R.string.hyphen))+1, roomName.length());
+                        String cityName = null;
+                        roomName = roomNames[which].substring(roomNames[which].indexOf(resources.getString(R.string.hyphen)) + 1, roomNames[which].length());
+                        cityName = roomNames[which].substring(0, roomNames[which].indexOf(resources.getString(R.string.hyphen)));
                         preferences.edit().putString("roomName", roomName).commit();
+                        preferences.edit().putString("cityName", cityName).commit();
                         roomNameTextView.setText(roomName);
                         Intent intent = new Intent(context, CalendarService.class);
                         startService(intent);

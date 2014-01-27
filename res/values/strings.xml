@@ -11,6 +11,7 @@
     <string name="internet_unavailable">Internet connection not available</string>
     <string name="select_room">Select Room</string>
     <string name="majestic">Majestic</string>
+    <string name="bangalore">Bangalore</string>
     <string name="organizer">Organizer:</string>
     <string name="email_id">email id</string>
     <string name="tw_addr">\@tw.com</string>
@@ -18,6 +19,7 @@
     <string name="end_time">End Time</string>
     <string name="okay">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="thoughtworks">ThoughtWorks</string>
 
 
 </resources>
