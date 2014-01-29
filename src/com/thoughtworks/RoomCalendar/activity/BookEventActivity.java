@@ -59,7 +59,6 @@ public class BookEventActivity extends Activity {
 
         okButton = (Button) findViewById(R.id.okay_button);
         cancelButton = (Button) findViewById(R.id.cancel_button);
-
         registerListeners();
 
     }

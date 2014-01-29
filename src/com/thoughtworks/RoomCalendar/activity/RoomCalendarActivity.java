@@ -129,7 +129,7 @@ public class RoomCalendarActivity extends Activity {
             cityNameTextView.setText(preferences.getString("cityName", null));
             if (isRoomAvailable()) {
                 currentEventDetailsTextView.setVisibility(View.GONE);
-                eventsViewHolder.setBackgroundColor(Color.parseColor("#32CD32"));
+                eventsViewHolder.setBackgroundColor(Color.parseColor("#009900"));
                 addButton.setVisibility(View.VISIBLE);
             } else {
                 currentEventDetailsTextView.setVisibility(View.VISIBLE);
