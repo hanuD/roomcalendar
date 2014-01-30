@@ -23,8 +23,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.BookEventActivity" android:label="@string/book_event_activity"
-                  android:screenOrientation="landscape" android:theme="@android:style/Theme.Holo.DialogWhenLarge"/>
+        <activity android:name=".activity.BookEventActivity"
+                  android:label="@string/book_event_activity"
+                  android:screenOrientation="landscape"
+                  android:theme="@android:style/Theme.Holo.Dialog"/>
 
         <service
                 android:name=".activity.CalendarService"

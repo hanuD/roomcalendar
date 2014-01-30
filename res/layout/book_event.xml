@@ -5,11 +5,11 @@
               android:layout_height="fill_parent"
               android:keepScreenOn="true"
               >
-    <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/contentHolder">
+
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="400dp"
+                        android:layout_height="450dp"
                 >
 
             <TextView
@@ -19,7 +19,7 @@
                     android:text="@string/event_name"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     android:paddingLeft="50dp"
                     android:textSize="20sp"
                     android:gravity="bottom"
@@ -30,7 +30,7 @@
                     android:layout_height="50dp"
                     android:id="@+id/eventNameText"
                     android:layout_alignParentTop="true"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     android:textSize="20sp"
                     android:layout_alignParentRight="true"
                     android:layout_alignLeft="@+id/endTimeHolderTextView"
@@ -51,7 +51,6 @@
                     android:layout_height="50dp"
                     android:id="@+id/organizer"
                     android:layout_below="@+id/eventHolderTextView"
-                    android:layout_marginTop="20dp"
                     android:textSize="20sp"
                     android:layout_alignLeft="@+id/eventNameText"
                     android:layout_alignRight="@+id/endTimePicker"/>
@@ -63,7 +62,8 @@
                     android:textSize="20sp"
                     android:layout_alignBottom="@+id/organizer"
                     android:layout_marginTop="20dp"
-                    android:layout_toRightOf="@+id/organizer"/>
+                    android:layout_toRightOf="@+id/organizer"
+                    />
 
             <TextView
                     android:layout_width="150dp"
@@ -73,8 +73,8 @@
                     android:paddingLeft="50dp"
                     android:textSize="20sp"
                     android:gravity="bottom"
-                    android:layout_marginTop="20dp"
                     android:layout_below="@+id/organizerHolderTextView"
+                    android:layout_marginBottom="5dp"
                     android:layout_alignParentLeft="true"/>
             <TextView
                     android:layout_width="150dp"
@@ -82,49 +82,45 @@
                     android:textSize="20sp"
                     android:text="@string/end_time"
                     android:id="@+id/endTimeHolderTextView"
-                    android:layout_marginTop="20dp"
                     android:gravity="bottom"
                     android:layout_below="@+id/twEmail"
+                    android:layout_marginBottom="5dp"
                     android:layout_alignLeft="@+id/endTimePicker"/>
 
             <TimePicker
                     android:layout_width="wrap_content"
                     android:layout_height="200dp"
                     android:id="@+id/startTimePicker"
-                    android:layout_marginLeft="50dp" android:layout_below="@+id/startTimeHolderTextView"
+                    android:layout_marginLeft="50dp"
+                    android:layout_below="@+id/startTimeHolderTextView"
                     android:layout_alignParentLeft="true"/>
             <TimePicker
                     android:layout_width="wrap_content"
                     android:layout_height="200dp"
                     android:id="@+id/endTimePicker"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="100dp"
                     android:layout_marginLeft="100dp"
                     android:layout_alignTop="@+id/startTimePicker"
+                    android:layout_marginBottom="10dp"
                     android:layout_alignParentRight="true"/>
-
-        </RelativeLayout>
-    </ScrollView>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/contentHolder">
-
             <Button
-                    android:layout_width="290dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/cancel"
-                    android:id="@+id/cancel_button"
-                    android:layout_marginTop="10dp"
-                    />
-            <Button
-                    android:layout_width="290dp"
+                    android:layout_width="280dp"
                     android:layout_height="wrap_content"
                     android:text="@string/okay"
                     android:id="@+id/okay_button"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    />
+                    android:layout_alignParentBottom="true"
+                    android:background="@android:color/darker_gray"
+                    android:layout_alignRight="@+id/eventNameText"/>
+            <Button
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cancel"
+                    android:id="@+id/cancel_button"
+                    android:background="@android:color/darker_gray"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"/>
 
-    </LinearLayout>
+        </RelativeLayout>
+
 </RelativeLayout>

@@ -40,7 +40,8 @@
                 android:textSize="30sp"
                 android:textColor="#FFFFFF"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="130dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="110dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="10dp"
                 android:maxLines="3"
@@ -51,7 +52,7 @@
                 android:textSize="25sp"
                 android:textColor="#FFFFFF"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="60dp"
+                android:layout_marginBottom="40dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="10dp"
                 android:id="@+id/currentEventDetailsTextView"/>
@@ -61,7 +62,7 @@
                 android:textSize="15sp"
                 android:textColor="#FFFFFF"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="5dp"
                 android:textStyle="bold"
                 android:layout_marginLeft="60dp"
                 android:id = "@+id/authorNameTextView"/>
@@ -83,13 +84,13 @@
                 android:layout_alignBaseline="@+id/currentEventNameTextView"
                 android:layout_alignBottom="@+id/currentEventNameTextView" android:layout_centerHorizontal="true"/>
         <DigitalClock
-                android:layout_width="250dp"
+                android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:id="@+id/digitalClock"
                 android:textSize="60sp"
                 android:textColor="#FFFFFF"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="250dp"
+                android:layout_marginLeft="200dp"
                 android:layout_centerHorizontal="true"/>
         <TextView
                 android:layout_width="wrap_content"
