@@ -76,7 +76,6 @@ public class EventsRetriever extends AsyncTask<String, Void, ArrayList<EventDeta
         }
         cursor.close();
 
-        System.out.println(eventDetailsList.toString());
         return eventDetailsList;
     }
 }
