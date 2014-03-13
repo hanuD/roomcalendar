@@ -35,7 +35,7 @@ public class BookEventTasker extends AsyncTask<BookingDetails, Void, Integer> {
         ContentValues values = new ContentValues();
         values.put(CalendarContract.Attendees.ATTENDEE_NAME, bookingDetail.getOrganizer());
         values.put(CalendarContract.Attendees.ATTENDEE_EMAIL, bookingDetail.getOrganizer() + "@thoughtworks.com");
-        values.put(CalendarContract.Attendees.ATTENDEE_RELATIONSHIP, CalendarContract.Attendees.RELATIONSHIP_ORGANIZER);
+        values.put(CalendarContract.Attendees.ATTENDEE_RELATIONSHIP, CalendarContract.Attendees.RELATIONSHIP_PERFORMER);
         values.put(CalendarContract.Attendees.ATTENDEE_TYPE, CalendarContract.Attendees.TYPE_REQUIRED);
         values.put(CalendarContract.Attendees.ATTENDEE_STATUS, CalendarContract.Attendees.ATTENDEE_STATUS_INVITED);
         values.put(CalendarContract.Attendees.EVENT_ID, eventID);

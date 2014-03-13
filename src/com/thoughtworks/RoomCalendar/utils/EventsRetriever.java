@@ -54,6 +54,9 @@ public class EventsRetriever extends AsyncTask<String, Void, ArrayList<EventDeta
         ContentResolver contentResolver = context.getContentResolver();
 
         Cursor cursor = contentResolver.query(builder.build(), INSTANCE_PROJECTION, null, null, "startDay ASC, startMinute ASC");
+        String[] organizerName= new String[] {CalendarContract.Attendees.ATTENDEE_NAME, CalendarContract.Attendees.ATTENDEE_RELATIONSHIP};
+        String selection = "((" + CalendarContract.Attendees.ATTENDEE_RELATIONSHIP + " = ?)";
+        Cursor attendeeCursor = null;
 
         if (cursor.moveToFirst()) {
             do {
@@ -70,6 +73,20 @@ public class EventsRetriever extends AsyncTask<String, Void, ArrayList<EventDeta
                         eventDetails.setEndTime(cursor.getLong(4));
 
                         eventDetails.setEventId(cursor.getLong(5));
+                        selection = selection +  "AND (" + CalendarContract.Attendees.EVENT_ID + " = ?))";
+                        attendeeCursor = CalendarContract.Attendees.query(contentResolver, eventDetails.getEventId(), organizerName);
+
+                        if(attendeeCursor.moveToFirst()) {
+                            do {
+                                String attendeeName = attendeeCursor.getString(0);
+                                if(attendeeName.contains("thoughtworks_")) {
+                                    continue;
+                                } else {
+                                    eventDetails.setOrganizer(attendeeCursor.getString(0));
+                                }
+                            }while (cursor.moveToNext());
+                        }
+
                         eventDetailsList.add(eventDetails);
                     }
             } while (cursor.moveToNext());
