@@ -64,11 +64,22 @@ public class RoomCalendarActivity extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             adapter.clear();
-            setEventDetails((ArrayList <EventDetails>) intent.getSerializableExtra("eventDetail"));
+            setEventDetails((ArrayList<EventDetails>) intent.getSerializableExtra("eventDetail"));
             updateCalendarEvents(adapter);
 
         }
     };
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        filter.addAction(RoomCalendarActivity.BROADCAST_ACTION);
+        getApplicationContext().registerReceiver(receiver, filter);
+        initializaAdapter();
+
+        Intent calendarServiceIntent = new Intent(this, CalendarService.class);
+        startService(calendarServiceIntent);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,42 +94,46 @@ public class RoomCalendarActivity extends Activity {
         NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         resources = getResources();
         preferences = getSharedPreferences(PREFS_NAME, 0);
-        preferences.edit().putString("roomName", resources.getString(R.string.majestic)).commit();
-        preferences.edit().putString("cityName", resources.getString(R.string.bangalore)).commit();
+        preferences.edit().putString("roomName", resources.getString(R.string.tanjore_temple)).commit();
+        preferences.edit().putString("cityName", resources.getString(R.string.chennai)).commit();
 
         context = this;
 
         if (mWifi.isConnected()) {
 
-            eventsViewHolder = (RelativeLayout) findViewById(R.id.eventsViewHolder);
-            roomNameTextView = (TextView) findViewById(R.id.roomNameTextView);
-            currentEventDetailsTextView = (TextView) findViewById(R.id.currentEventDetailsTextView);
-            currentEventNameTextView = (TextView) findViewById(R.id.currentEventNameTextView);
-            upcomingEventsListView = (ListView) findViewById(R.id.upcomingEventsListView);
-            eventsList = new ArrayList<EventDetails>();
-            roomNameTextView.setText(resources.getString(R.string.majestic));
-            addButton = (Button) findViewById(R.id.addButton);
-            currentDate = (TextView) findViewById(R.id.currentDate);
-            cityNameTextView = (TextView) findViewById(R.id.cityNameTextView);
-
+            initializeView();
             registerClickListeners();
-
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-
             filter.addAction(RoomCalendarActivity.BROADCAST_ACTION);
             getApplicationContext().registerReceiver(receiver, filter);
-
-            adapter = new CustomListViewAdapter(this,
-                    R.layout.list_item, eventsList);
-            Log.d("Event Details", eventsList.toString());
-            upcomingEventsListView.setAdapter(adapter);
+            initializaAdapter();
 
             Intent intent = new Intent(this, CalendarService.class);
             startService(intent);
         } else {
             Toast.makeText(context, resources.getString(R.string.internet_unavailable), Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void initializaAdapter() {
+        adapter = new CustomListViewAdapter(this,
+                R.layout.list_item, eventsList);
+        Log.d("Event Details", eventsList.toString());
+        upcomingEventsListView.setAdapter(adapter);
+    }
+
+    private void initializeView() {
+        eventsViewHolder = (RelativeLayout) findViewById(R.id.eventsViewHolder);
+        roomNameTextView = (TextView) findViewById(R.id.roomNameTextView);
+        currentEventDetailsTextView = (TextView) findViewById(R.id.currentEventDetailsTextView);
+        currentEventNameTextView = (TextView) findViewById(R.id.currentEventNameTextView);
+        upcomingEventsListView = (ListView) findViewById(R.id.upcomingEventsListView);
+        eventsList = new ArrayList<EventDetails>();
+        roomNameTextView.setText(resources.getString(R.string.tanjore_temple));
+        addButton = (Button) findViewById(R.id.addButton);
+        currentDate = (TextView) findViewById(R.id.currentDate);
+        cityNameTextView = (TextView) findViewById(R.id.cityNameTextView);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
     }
 
     private void updateCalendarEvents(CustomListViewAdapter adapter) {
@@ -131,6 +146,7 @@ public class RoomCalendarActivity extends Activity {
                 currentEventDetailsTextView.setVisibility(View.GONE);
                 eventsViewHolder.setBackgroundColor(Color.parseColor("#009900"));
                 addButton.setVisibility(View.VISIBLE);
+                currentEventNameTextView.setText("");
             } else {
                 currentEventDetailsTextView.setVisibility(View.VISIBLE);
                 eventsViewHolder.setBackgroundColor(Color.parseColor("#800000"));
@@ -191,23 +207,23 @@ public class RoomCalendarActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        getApplicationContext().unregisterReceiver(receiver);
     }
 
     private void registerClickListeners() {
         roomNameTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder=new AlertDialog.Builder(context);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle(R.string.select_room);
                 final String[] roomNames = resources.getStringArray(R.array.room_array);
                 builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
 
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {}
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
                 });
 
-                builder.setSingleChoiceItems(R.array.room_array,0,new DialogInterface.OnClickListener() {
+                builder.setSingleChoiceItems(R.array.room_array, 0, new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -223,7 +239,6 @@ public class RoomCalendarActivity extends Activity {
                     }
                 });
                 builder.show();
-
             }
         });
 

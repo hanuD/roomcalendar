@@ -18,7 +18,6 @@ import com.thoughtworks.RoomCalendar.utils.BookEventTasker;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.concurrent.ExecutionException;
 
 public class BookEventActivity extends Activity {
 
@@ -39,6 +38,12 @@ public class BookEventActivity extends Activity {
         Intent intent = getIntent();
         eventDetails = (ArrayList<EventDetails>) intent.getSerializableExtra("eventDetails");
 
+        initializeActivity();
+        registerListeners();
+
+    }
+
+    private void initializeActivity() {
         Calendar cal = Calendar.getInstance();
 
         int hour = cal.get(Calendar.HOUR_OF_DAY);
@@ -47,108 +52,115 @@ public class BookEventActivity extends Activity {
         eventNameText = (EditText) findViewById(R.id.eventNameText);
         organizerText = (EditText) findViewById(R.id.organizer);
         startTimePicker = (TimePicker) findViewById(R.id.startTimePicker);
-        startTimePicker.setIs24HourView(true);
-        startTimePicker.setCurrentHour(hour);
-        startTimePicker.setCurrentMinute(min);
-
         endTimePicker = (TimePicker) findViewById(R.id.endTimePicker);
-        endTimePicker.setIs24HourView(true);
-        endTimePicker.setCurrentHour(hour);
-        endTimePicker.setCurrentMinute(min);
-
-
         okButton = (Button) findViewById(R.id.okay_button);
         cancelButton = (Button) findViewById(R.id.cancel_button);
-        registerListeners();
+
+        setTimeFor(startTimePicker, hour, min);
+        setTimeFor(endTimePicker, hour, min);
 
     }
 
+    private void setTimeFor(TimePicker timePicker, int hour, int min) {
+        timePicker.setIs24HourView(true);
+        timePicker.setCurrentHour(hour);
+        timePicker.setCurrentMinute(min);
+    }
+
     private void registerListeners() {
+        setCancelButtonListener();
+        setOKButtonListener();
+    }
+
+    private void setOKButtonListener() {
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        context);
+
+                initializeAlertDialog(alertDialogBuilder);
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
+
+            private void initializeAlertDialog(AlertDialog.Builder alertDialogBuilder) {
+                alertDialogBuilder.setTitle("Confirmation");
+                alertDialogBuilder.setMessage("Are you sure you want to book the event with the id " + organizerText.getText() + ". The event wont be booked if the id is not valid.");
+                alertDialogBuilder.setCancelable(false);
+                alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        bookEventIfAvailable();
+                    }
+
+                    private void bookEventIfAvailable() {
+                        boolean isEventOverlap = false;
+
+                        if (eventDetails != null && eventDetails.size() > 0) {
+                            isEventOverlap = setEventOverlapStatus(getStartTime(), getEndTime(), isEventOverlap);
+                        }
+                        if (!isEventOverlap) {
+                            BookEventTasker eventTasker = new BookEventTasker(context);
+                            BookingDetails bookingDetails = new BookingDetails(eventNameText.getText().toString(), organizerText.getText().toString(), getStartTime(), getEndTime());
+                            eventTasker.execute(bookingDetails);
+                            Toast.makeText(context, "Event booked", Toast.LENGTH_LONG).show();
+                            startHomeActivity();
+                        } else {
+                            Toast.makeText(context, "Event rejected. An event already exists in the given time", Toast.LENGTH_LONG).show();
+                            startHomeActivity();
+                        }
+                    }
+
+                });
+                alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+            }
+
+        });
+    }
+
+    private void setCancelButtonListener() {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startHomeActivity();
             }
         });
+    }
 
-        okButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    private Calendar getEndTime() {
+        Calendar endTime = Calendar.getInstance();
+        endTime.set(Calendar.HOUR_OF_DAY, endTimePicker.getCurrentHour());
+        endTime.set(Calendar.MINUTE, endTimePicker.getCurrentMinute());
+        return endTime;
+    }
 
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        context);
+    private Calendar getStartTime() {
+        Calendar startTime = Calendar.getInstance();
+        startTime.set(Calendar.HOUR_OF_DAY, startTimePicker.getCurrentHour());
+        startTime.set(Calendar.MINUTE, startTimePicker.getCurrentMinute());
+        return startTime;
+    }
 
-                alertDialogBuilder.setTitle("Confirmation");
-
-                alertDialogBuilder
-                        .setMessage("Are you sure you want to book the event with the id " + organizerText.getText()+". The event wont be booked if the id is not valid.")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-
-                                Calendar startTime = Calendar.getInstance();
-                                startTime.set(Calendar.HOUR_OF_DAY, startTimePicker.getCurrentHour());
-                                startTime.set(Calendar.MINUTE, startTimePicker.getCurrentMinute());
-
-                                Calendar endTime = Calendar.getInstance();
-                                endTime.set(Calendar.HOUR_OF_DAY, endTimePicker.getCurrentHour());
-                                endTime.set(Calendar.MINUTE, endTimePicker.getCurrentMinute());
-
-                                boolean isEventOverlap = false;
-
-                                if (eventDetails != null && eventDetails.size() > 0) {
-                                    for (EventDetails events : eventDetails) {
-                                        if ((startTime.getTimeInMillis() > events.getStartTime() && startTime.getTimeInMillis() < events.getEndTime()) ||
-                                                (endTime.getTimeInMillis() > events.getStartTime() && endTime.getTimeInMillis() < events.getEndTime())) {
-                                            isEventOverlap = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                                if (!isEventOverlap) {
-                                    BookEventTasker eventTasker = bookEvent(startTime, endTime);
-                                    try {
-                                        System.out.println(eventTasker.get());
-                                        Toast.makeText(context, "Event booked", Toast.LENGTH_LONG).show();
-                                        startHomeActivity();
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    } catch (ExecutionException e) {
-                                        e.printStackTrace();
-                                    }
-                                } else {
-                                    Toast.makeText(context, "Event rejected. An event already exists in the given time", Toast.LENGTH_LONG).show();
-                                    startHomeActivity();
-                                }
-
-                            }
-
-                            private BookEventTasker bookEvent(Calendar startTime, Calendar endTime) {
-                                BookEventTasker eventTasker = new BookEventTasker(context);
-                                BookingDetails bookingDetails = new BookingDetails(eventNameText.getText().toString(), organizerText.getText().toString(), startTime, endTime);
-                                eventTasker.execute(bookingDetails);
-                                return eventTasker;
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // if this button is clicked, just close
-                                // the dialog box and do nothing
-                                dialog.cancel();
-                            }
-                        });
-
-                AlertDialog alertDialog = alertDialogBuilder.create();
-
-                alertDialog.show();
-
+    private boolean setEventOverlapStatus(Calendar startTime, Calendar endTime, boolean isEventOverlap) {
+        for (EventDetails events : eventDetails) {
+            if ((startTime.getTimeInMillis() > events.getStartTime()
+                    && startTime.getTimeInMillis() < events.getEndTime()) ||
+                    (endTime.getTimeInMillis() > events.getStartTime()
+                            && endTime.getTimeInMillis() < events.getEndTime())) {
+                isEventOverlap = true;
+                break;
             }
-        });
+        }
+        return isEventOverlap;
     }
 
     private void startHomeActivity() {
         Intent intent = new Intent(context, RoomCalendarActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 }

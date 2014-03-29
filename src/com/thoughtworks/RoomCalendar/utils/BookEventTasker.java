@@ -8,13 +8,14 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.CalendarContract;
+import android.util.Log;
 import com.thoughtworks.RoomCalendar.activity.RoomCalendarActivity;
 import com.thoughtworks.RoomCalendar.domain.BookingDetails;
 
 public class BookEventTasker extends AsyncTask<BookingDetails, Void, Integer> {
 
-    private  Context context;
-    private  SharedPreferences preferences;
+    private Context context;
+    private SharedPreferences preferences;
     private ContentResolver contentResolver;
 
     public BookEventTasker(Context context) {
@@ -50,12 +51,13 @@ public class BookEventTasker extends AsyncTask<BookingDetails, Void, Integer> {
         eventValues.put(CalendarContract.Events.CALENDAR_ID, calendarId);
         eventValues.put(CalendarContract.Events.EVENT_TIMEZONE, "Asia/Kolkata");
         eventValues.put(CalendarContract.Events.ORGANIZER, bookingDetail.getOrganizer());
-        eventValues.put(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY);
+        eventValues.put(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_TENTATIVE);
         eventValues.put(CalendarContract.Events.GUESTS_CAN_MODIFY, 1);
         eventValues.put(CalendarContract.Events.GUESTS_CAN_INVITE_OTHERS, 1);
-        String roomName = context.getSharedPreferences(RoomCalendarActivity.PREFS_NAME, 0).getString("roomFullName", null);
+        Log.d("RoomCalendar", "Room Name : " + context.getSharedPreferences(RoomCalendarActivity.PREFS_NAME, 0).getString("roomName", null));
+        String roomName = context.getSharedPreferences(RoomCalendarActivity.PREFS_NAME, 0).getString("roomName", null);
         if (roomName == null) {
-            roomName =  context.getSharedPreferences(RoomCalendarActivity.PREFS_NAME, 0).getString("roomName", null);
+            roomName = context.getSharedPreferences(RoomCalendarActivity.PREFS_NAME, 0).getString("roomFullName", null);
         }
         eventValues.put(CalendarContract.Events.EVENT_LOCATION, roomName);
 
@@ -65,9 +67,9 @@ public class BookEventTasker extends AsyncTask<BookingDetails, Void, Integer> {
 
     private long getCalendarId() {
         Uri uri = CalendarContract.Calendars.CONTENT_URI;
-        String[] calendarProjection = new String[] {CalendarContract.Calendars._ID};
-        String selection =  CalendarContract.Calendars.CALENDAR_DISPLAY_NAME + " like ?";
-        String[] selectionArgs = new String[] {"%"+preferences.getString("roomName", null)+"%"};
+        String[] calendarProjection = new String[]{CalendarContract.Calendars._ID};
+        String selection = CalendarContract.Calendars.CALENDAR_DISPLAY_NAME + " like ?";
+        String[] selectionArgs = new String[]{"%" + preferences.getString("roomName", null) + "%"};
         Cursor cursor = null;
         long calendarId = 0;
 
