@@ -10,8 +10,8 @@
     <string name="hyphen"> - </string>
     <string name="internet_unavailable">Internet connection not available</string>
     <string name="select_room">Select Room</string>
-    <string name="majestic">Majestic</string>
-    <string name="bangalore">Bangalore</string>
+    <string name="tanjore_temple">Tanjore Temple</string>
+    <string name="chennai">Chennai</string>
     <string name="organizer">Organizer:</string>
     <string name="email_id">email id</string>
     <string name="tw_addr">\@tw.com</string>
